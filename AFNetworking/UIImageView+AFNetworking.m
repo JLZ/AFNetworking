@@ -26,7 +26,7 @@
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import "UIImageView+AFNetworking.h"
 
-@interface AFImageCache : NSCache
+@interface AFImageCache()
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
 - (void)cacheImage:(UIImage *)image
         forRequest:(NSURLRequest *)request;
@@ -184,6 +184,12 @@ static inline NSString * AFImageCacheKeyFromURLRequest(NSURLRequest *request) {
     if (image && request) {
         [self setObject:image forKey:AFImageCacheKeyFromURLRequest(request)];
     }
+}
+
+- (void)clearCachedImageForKey:(NSString*)key
+{
+	if ([self objectForKey:key])
+		[self removeObjectForKey:key];
 }
 
 @end
